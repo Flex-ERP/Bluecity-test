@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="lot_template" inherit_id="point_of_sale.template" xml:space="preserve">
+ 
+	<t t-name="lot_selection">
+		<div class="modal-dialog">
+			<div class="popup popup-confirm" style="height: 400px !important;">
+				<div class="title" style='background-color:rgb(110,200,155) !important; color:white'>Lot/Serial Number</div>
+				
+				<div style="text-align: left; margin-left: 37px;">
+				 <label style="text-align:left">Select Lot Number:  </label>
+
+				 <select id="payment_type" class='detail' name='type' style="height: 35px;width: 59%;float: right;   margin-right: 6%;">
+					<option value="1">Select</option>
+				  </select>
+				</div><br/>
+				 
+				<div class="footer">
+					<div class="button cancel" id="cancel_lot_selection" style="background-color: rgb(110,200,155) !important; color: #fff;">
+						Cancel 
+					</div>
+					<div class="button confirm" id="apply_lot" style="background-color: rgb(110,200,155) !important; color: #fff;">
+						Apply 
+					</div>
+				</div>
+			</div>
+		</div>
+	</t>
+</templates>
