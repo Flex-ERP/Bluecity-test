@@ -4,7 +4,7 @@
     'description': 'Select serial number on sales order line',
     'category': 'Sale',
     'summary': 'Allows to select a serial number from the specific product in sale',
-    'version': '14.0.1.0.0',
+    'version': '14.0.1.0.1',
     'author' : 'Aktiv Software',
     'website' : 'www.aktivsoftware.com',
     'depends': ['sale_management', 'purchase', 'stock', 'account', 'point_of_sale'],

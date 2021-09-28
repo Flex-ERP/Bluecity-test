@@ -12,12 +12,12 @@ class SaleOrderLine(models.Model):
 
 	@api.depends('lot_id')
 	def get_lot_taxes(self):
+		"""get taxes from lot"""
 		for rec in self:
 			if rec.lot_id and rec.lot_id.tax_ids:
 				rec.tax_id = [(6, 0, rec.lot_id.tax_ids.ids)]
 			else:
 				rec.tax_id = False
-
 
 	def _prepare_procurement_values(self, group_id=False):
 	    res = super()._prepare_procurement_values(group_id)

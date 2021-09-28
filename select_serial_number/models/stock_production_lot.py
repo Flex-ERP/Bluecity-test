@@ -22,7 +22,7 @@ class StockRule(models.Model):
 
   def _get_stock_move_values(self, product_id, product_qty, product_uom, location_id, name, origin, company_id, values):
         res = super()._get_stock_move_values(product_id, product_qty, product_uom, location_id, name, origin, company_id, values)
-        res['lot_id'] = values.get('lot_id', False)
+        res['lot_ids'] = [(6, 0, [values.get('lot_id', False)])]
         return res
 
 
@@ -38,17 +38,3 @@ class StockMove(models.Model):
                 'lot_id': self.lot_ids.ids[0]
                 })
         return res
-
-    @api.depends('move_line_ids', 'move_line_ids.lot_id', 'move_line_ids.qty_done')
-    def _compute_lot_ids(self):
-        domain_nosuggest = [('move_id', 'in', self.ids), ('lot_id', '!=', False), '|', ('qty_done', '!=', 0.0), ('product_qty', '=', 0.0)]
-        domain_suggest = [('move_id', 'in', self.ids), ('lot_id', '!=', False), ('qty_done', '!=', 0.0)]
-        lots_by_move_id_list = []
-        for domain in [domain_nosuggest, domain_suggest]:
-            lots_by_move_id = self.env['stock.move.line'].read_group(
-                domain,
-                ['move_id', 'lot_ids:array_agg(lot_id)'], ['move_id'], 
-            )
-            lots_by_move_id_list.append({by_move['move_id'][0]: by_move['lot_ids'] for by_move in lots_by_move_id})
-        for move in self:
-            move.lot_ids = [(6, 0, move.lot_id.ids)]
